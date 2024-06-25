@@ -1,116 +1,174 @@
 <html>
 
 <head>
-	<title>PHP - Lab1</title>
+	<title>PHP - Lab3</title>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Regester</title>
+	<link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
 
+
+	<div class="form-container">
+		<form action="<?php $_PHP_SELF ?>" method="POST">
+			<div class="form-div">
+				<div class="form-title">
+					<h3>Regester - Create account</h3>
+				</div>
+				<div class="form-p">
+					<p>Field marked with <sup>*</sup> are compulsory fields</p>
+				</div>
+				<table>
+					<tr>
+						<td class="form-label"><sup>*</sup><label>Your Name</label></td>
+						<td class="form-input"><input type="text" name="name" style="width: 280px;" /> <span style="color: red;" id="ifNameEmpty"></span></td>
+					</tr>
+					<tr>
+						<td class="form-label"><sup>*</sup><label>E-Mail</label></td>
+						<td class="form-input"><input id="email" required type="email" name="email" style="width: 450px;" /></td>
+					</tr>
+
+					<tr>
+						<td class="form-label">
+							<label>Group No</label>
+						</td>
+						<td class="form-input">
+							<input id="g_no" type="number" name="gNo">
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">
+							<label>
+								Class Details
+							</label>
+						</td>
+						<td class="form-input">
+							<textarea rows="5" cols="50" name="details" id="details"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">
+							<label for="">Gender</label>
+						</td>
+						<td class="form-input">
+							<input type="radio" id="male" name="gender" value="male">
+							<label for="male">Male</label><br>
+							<input type="radio" id="female" name="gender" value="female">
+							<label for="female">Female</label><br>
+						</td>
+					</tr>
+					<tr>
+						<td class="form-label">
+							<label>Courses</label>
+						</td>
+						<td class="form-input">
+							<select name="courses[]" style="width: 150px; text-align: center; padding: 5px;" multiple>
+								<option disabled>Select courses</option>
+								<option id="php" value="php">PHP</option>
+								<option id="html" value="html">HTML</option>
+								<option id="css" value="css">CSS</option>
+								<option id="js" value="js">JavaScript</option>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td><input type="checkbox" name="ch-box"> <span style="color: #2c632d">I accept the </span><a href="#" target="">Terms of Use</a></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Continue >>" name="submit"> <input type="reset" name="reset"></td>
+					</tr>
+
+				</table>
+			</div>
+
+		</form>
+	</div>
 	<?php
-	//? ======================================[ task 1 ]==============================================
-
-	echo nl2br("hi\r\nnew line\r\n");
-	//? =============================================================================================
-
-
-
-	//? ======================================[ task 2 ]==============================================
-
-	//? explode, implode, ltrim
-	//! explode
-	$str = "hi and welcome";
-	$arr1 = explode(" ", $str);
-	var_dump($arr1);
-	echo "<br>";
-
-
-	echo "<br><br><br>";
-
-	//! implode
-	$arr2 = ['name', 'age', 'mobile'];
-	var_dump(implode(" , ", $arr2));
-
-	echo "<br><br><br>";
-
-	//! ltrim
-	$str2 = "          waleed 3mar";
-	echo "<pre>" . $str2 . "</pre>";
-	echo "<pre>" . ltrim($str2) . "</pre>";
-	//? ============================================================================================
-
-
-
-
-	//? ======================================[ task 3 ]==============================================
-
-	// $arr = $_SERVER;
-	// foreach( $arr as $i => $key){
-
-	// 	// print $arr[$i] . " =====> " . $i;
-	// 	echo '<table border=1>';
-	// 	echo '<tr>';
-	// 	echo '<td style="color:red; width: 350px">' . $i . '</td>';
-	// 	echo '<td style="color:blue; width: 350px">' . $key . '</td>';
-	// 	// echo '<br>	';
-	// 	echo '</tr>';
-	// }
-	//? ===============================================================================================
-
-
-
-	//? ======================================[ task 4 ]==============================================
-
-	$values = array(12, 45, 10, 25);
-	$sum = 0;
-	$avrg = 0;
-
-	foreach ($values as $value) {
-		$sum += $value;
-	}
-	$avrg = $sum / count($values);
-	echo 'sum = ' . $sum . '<br>';
-	echo 'avrg = ' . $avrg . '<br>';
-
-	echo 'reverse order: ';
-	arsort($values);
-	foreach ($values as $value) {
-		echo $value . ', ';
-	}
+	// echo print_r($_POST);
+	$nameFormat = "/^[a-zA-Z]+$/i";
 	echo '<br>';
+	if (isset($_POST["submit"])) {
+		if (!empty($_POST["name"])) {
+			if (!preg_match($nameFormat, $_POST["name"])) {
+				echo '<script>
+			
+			let name = document.getElementById("ifNameEmpty");
+			name.innerText = "* Only Letters ALLOWED!";
+			
+			let email = document.getElementById("email");
+			let g_no = document.getElementById("g_no");
+			let details = document.getElementsByName("details");
+			let gender = document.getElementById("' . $_POST["gender"] . '");
+			
 
-	//? ===============================================================================================
+			gender.setAttribute("checked", "");			
+			g_no.value = ' . $_POST["gNo"] . ';
+			email.value = "' . $_POST["email"] . '";
+			console.log("' . $_POST["details"] . '");
+			console.log(details[0]);
+			details[0].value = "' . $_POST["details"] . '";
 
 
+		
 
-	//? ======================================[ task 5 ]==============================================
+		</script>';
+			} else {
+				echo '<div style=" font-weight: bold; font-size:20px">';
+				echo '<br> Your name: ' . $_POST["name"];
+				echo '<br> Your Email: ' . $_POST["email"];
+				echo !empty($_POST["gNo"]) ? '<br> Group No:' . $_POST["gNo"] : '';
+				echo !empty($_POST["details"]) ? '<br> Class details: ' . $_POST["details"] : '';
+				echo !empty($_POST["gender"]) ? '<br> Gender: ' . $_POST["gender"] : '';
+				echo '<br>';
+				if (!empty($_POST['courses'])) {
+					echo 'Your courses are: ';
+					foreach ($_POST["courses"] as $key => $value) {
+						echo $value . ', ';
+					}
+				}
+				echo '</div>';
+			}
+		};
 
-	$names = array("Sara" => 31, "John" => 41, "Walaa" => 39, "aamy" => 40);
-	//! --- ascending
-	// sort($names);
-	// foreach ($names as $name) {
-	// 	echo $name . ', ';
-	// }
+		if (empty($_POST["name"])) {
+			echo '<script>
+			
+			let name = document.getElementById("ifNameEmpty");
+			name.innerText = "* This field is required";
+			
+			let email = document.getElementById("email");
+			let g_no = document.getElementById("g_no");
+			let details = document.getElementsByName("details");
+			let gender = document.getElementById("' . $_POST["gender"] . '");
+			
 
-	echo ' <br> ';
+			gender.setAttribute("checked", "");			
+			g_no.value = ' . $_POST["gNo"] . ';
+			email.value = "' . $_POST["email"] . '";
+			console.log("' . $_POST["details"] . '");
+			console.log(details[0]);
+			details[0].value = "' . $_POST["details"] . '";
 
-	// krsort($names);
-	// foreach ($names as $name => $value) {
-	// 	echo $name . ', ';
-	// }
-
-
-	//! --- descending 
-	// ksort($names);
-	// foreach ($names as $name => $value) {
-	// 	echo $name . ', ';
-	// }
-
-	arsort($names);
-	foreach ($names as $name) {
-		echo $name . ', ';
+		</script>';
+		}
 	}
-
 	?>
+
+</body>
+
+</html>
+
+<body>
 </body>
 
 </html>
