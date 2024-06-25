@@ -20,7 +20,7 @@
 		<form action="<?php $_PHP_SELF ?>" method="POST">
 			<div class="form-div">
 				<div class="form-title">
-					<h3>Regester - Create account</h3>
+					<h3>CMS - Class registration</h3>
 				</div>
 				<div class="form-p">
 					<p>Field marked with <sup>*</sup> are compulsory fields</p>
